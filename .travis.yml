@@ -11,4 +11,5 @@ before_script:
 
 script:
   - make build
+  - opam install -y ounit
   - make test
