@@ -8,7 +8,7 @@ repin: build
 	opam upgrade socialpeek
 
 test:
-	jbuilder runtest --dev --no-buffer -j 1
+	jbuilder runtest
 
 docs:
 	jbuilder build @doc && \
