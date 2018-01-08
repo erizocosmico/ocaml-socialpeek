@@ -18,5 +18,5 @@ depends: [
   "lwt_ssl" {< "1.2.0"}
   "cohttp-lwt-unix" {< "0.100.0"}
   "jbuilder" {build & >= "1.0+beta10"}
-  "ounit" {test}
+  "ounit" {test & >= "2.0.6"}
 ]
