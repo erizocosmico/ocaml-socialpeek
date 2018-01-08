@@ -3,7 +3,7 @@ open Base
 
 let with_fallback group fallback prev_val =
   match prev_val with
-  |None -> last_of group fallback
+  | None -> last_of group fallback
   | v -> v
 
 let get_site twitter = last_of twitter "twitter:site"
