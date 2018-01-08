@@ -1,5 +1,5 @@
-open Lib
-open Lib.Metatags
+open Socialpeek
+open Socialpeek.Metatags
 open OUnit
 open Base
 
@@ -261,6 +261,108 @@ let suite = "socialpeek" >::: [
           assert_equal data.width 0 ~msg:"width";
           assert_equal data.height 0 ~msg:"height";
         | _ -> assert_failure "card should be player"
+      );
+
+    "Opengrah.get_data should get all data" >:: (fun _ ->
+        let groups = meta_nodes [
+            ("twitter:type", "foo");
+            ("og:title", "title");
+            ("og:title", "title2");
+            ("og:type", "type");
+            ("og:url", "url");
+            ("og:site_name", "site_name");
+            ("og:determiner", "determiner");
+            ("og:description", "description");
+            ("og:locale", "locale");
+            ("og:locale:alternate", "a1");
+            ("og:locale:alternate", "a2");
+            ("og:image", "image1");
+            ("og:image", "image2");
+            ("og:image:secure_url", "image2:secure_url");
+            ("og:image:type", "image2:type");
+            ("og:image:width", "2");
+            ("og:image:height", "2");
+            ("og:image:alt", "image2:alt");
+            ("og:image", "image3");
+            ("og:image:url", "image3:url");
+            ("og:image:secure_url", "image3:secure_url");
+            ("og:image:type", "image3:type");
+            ("og:image:alt", "image3:alt");
+            ("og:video", "video1");
+            ("og:video", "video2");
+            ("og:video:secure_url", "video2:secure_url");
+            ("og:video:type", "video2:type");
+            ("og:video:width", "2");
+            ("og:video:height", "2");
+            ("og:video:alt", "video2:alt");
+            ("og:video", "video3");
+            ("og:video:url", "video3:url");
+            ("og:video:secure_url", "video3:secure_url");
+            ("og:video:type", "video3:type");
+            ("og:video:alt", "video3:alt");
+            ("og:audio", "audio1");
+            ("og:audio", "audio2");
+            ("og:audio:secure_url", "audio2:secure_url");
+            ("og:audio:type", "audio2:type");
+            ("og:audio", "audio3");
+            ("og:audio:url", "audio3:url");
+            ("og:audio:secure_url", "audio3:secure_url");
+            ("og:audio:type", "audio3:type");
+          ] |> group in
+        let data = Opengraph.get_data groups in
+        assert_equal data.title "title2" ~msg:"title";
+        assert_equal data.type_ "type" ~msg:"type";
+        assert_equal data.url "url" ~msg:"url";
+        assert_equal data.description "description" ~msg:"description";
+        assert_equal data.determiner "determiner" ~msg:"determiner";
+        assert_equal data.locale "locale" ~msg:"locale";
+        assert_equal data.alternate_locales ["a1"; "a2"] ~cmp:(List.equal ~equal:String.equal) ~msg:"alternate_locales";
+        assert_equal data.site_name "site_name" ~msg:"site_name";
+        assert_equal (List.length data.audios) 3 ~msg:"audios";
+        (match data.audios with
+         | [a1; a2; a3] ->
+           assert_equal a1.url "audio1" ~msg:"audio1 url";
+           assert_equal a2.url "audio2" ~msg:"audio2 url";
+           assert_equal a2.mime_type "audio2:type" ~msg:"audio2 type";
+           assert_equal a2.secure_url "audio2:secure_url" ~msg:"audio2 secure_url";
+           assert_equal a3.url "audio3:url" ~msg:"audio3 url";
+           assert_equal a3.mime_type "audio3:type" ~msg:"audio3 type";
+           assert_equal a3.secure_url "audio3:secure_url" ~msg:"audio3 secure_url";
+         | _ -> ());
+        assert_equal (List.length data.images) 3 ~msg:"images";        
+        (match data.images with
+         | [i1; i2; i3] ->
+           assert_equal i1.url "image1" ~msg:"image1 url";
+           assert_equal i2.url "image2" ~msg:"image2 url";
+           assert_equal i2.mime_type "image2:type" ~msg:"image2 type";
+           assert_equal i2.secure_url "image2:secure_url" ~msg:"image2 secure_url";
+           assert_equal i2.width 2 ~msg:"image2 width";
+           assert_equal i2.height 2 ~msg:"image2 height";
+           assert_equal i2.alt "image2:alt" ~msg:"image2 alt";
+           assert_equal i3.url "image3:url" ~msg:"image3 url";
+           assert_equal i3.mime_type "image3:type" ~msg:"image3 type";
+           assert_equal i3.secure_url "image3:secure_url" ~msg:"image3 secure_url";
+         | _ -> ());
+        assert_equal (List.length data.videos) 3 ~msg:"videos";
+        (match data.videos with
+         | [v1; v2; v3] ->
+           assert_equal v1.url "video1" ~msg:"video1 url";
+           assert_equal v2.url "video2" ~msg:"video2 url";
+           assert_equal v2.mime_type "video2:type" ~msg:"video2 type";
+           assert_equal v2.secure_url "video2:secure_url" ~msg:"video2 secure_url";
+           assert_equal v2.width 2 ~msg:"video2 width";
+           assert_equal v2.height 2 ~msg:"video2 height";
+           assert_equal v2.alt "video2:alt" ~msg:"video2 alt";
+           assert_equal v3.url "video3:url" ~msg:"video3 url";
+           assert_equal v3.mime_type "video3:type" ~msg:"video3 type";
+           assert_equal v3.secure_url "video3:secure_url" ~msg:"video3 secure_url";
+         | _ -> ());
+      );
+
+    "Opengrah.get_data has en_US as default locale" >:: (fun _ ->
+        let groups = meta_nodes [("og:title", "fancy site")] |> group in
+        let data = Opengraph.get_data groups in
+        assert_equal data.locale "en_US" ~msg:"locale";
       );
   ]
 

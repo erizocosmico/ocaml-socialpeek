@@ -2,7 +2,7 @@
 
 (executable (
   (name test)
-  (libraries (lib ounit base))
+  (libraries (socialpeek ounit base))
 ))
 
 (alias (

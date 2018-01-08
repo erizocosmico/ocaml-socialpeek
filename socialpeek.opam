@@ -1,6 +1,6 @@
 opam-version: "1.2"
 name: "socialpeek"
-version: "0.1.0"
+version: "1.0.0"
 maintainer: "Miguel Molina <miguel@erizocosmi.co>"
 authors: "Miguel Molina <miguel@erizocosmi.co>"
 homepage: "https://github.com/erizocosmico/ocaml-socialpeek"

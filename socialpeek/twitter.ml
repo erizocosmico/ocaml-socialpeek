@@ -16,17 +16,17 @@ let get_creator_id twitter = last_of twitter "twitter:creator:id"
 
 let get_title twitter opengraph = last_of twitter "twitter:title"
                                   |> with_fallback opengraph "og:title"
-                                  |> Option.value ~default:""
+                                  |> or_empty
 
 let get_description twitter opengraph = last_of twitter "twitter:description"
                                         |> with_fallback opengraph "og:description"
-                                        |> Option.value ~default:""
+                                        |> or_empty
 
 let get_image twitter opengraph = last_of twitter "twitter:image"
                                   |> with_fallback opengraph "og:image"
 
 let get_image_alt twitter = last_of twitter "twitter:image:alt"
-                            |> Option.value ~default:""
+                            |> or_empty
 
 module Summary = struct
   type t = {

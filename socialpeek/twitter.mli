@@ -58,4 +58,5 @@ type twitter_card = Summary of Summary.t
                   | App of App.t
                   | Player of Player.t
 
+(** Return the twitter card of the webpage given the grouped metatags. *)
 val get_card : Metatags.grouped_metatags -> twitter_card

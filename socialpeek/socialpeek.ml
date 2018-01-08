@@ -7,6 +7,7 @@ open Soup
 
 module Metatags = Metatags
 module Twitter = Twitter
+module Opengraph = Opengraph
 
 type error = Error_code of int 
            | Missing_location_header
