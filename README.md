@@ -2,6 +2,8 @@
 
 OCaml library to extract social information such as Twitter cards or OpenGraph data from webpages and HTML.
 
+[Check out the documentation](http://erizocosmi.co/ocaml-socialpeek/socialpeek/Socialpeek/index.html)
+
 ## Install
 
 It's not published on opam (yet), so to install this you need to clone the repository and pin it.
