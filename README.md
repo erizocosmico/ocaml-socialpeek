@@ -1,4 +1,4 @@
-# ocaml-socialpeek
+# ocaml-socialpeek [![Build Status](https://travis-ci.org/erizocosmico/ocaml-socialpeek.svg?branch=master)](https://travis-ci.org/erizocosmico/ocaml-socialpeek)
 
 OCaml library to extract social information such as Twitter cards or OpenGraph data from webpages and HTML.
 
@@ -6,11 +6,8 @@ OCaml library to extract social information such as Twitter cards or OpenGraph d
 
 ## Install
 
-It's not published on opam (yet), so to install this you need to clone the repository and pin it.
-
 ```bash
-git clone https://github.com/erizocosmico/ocaml-socialpeek.git
-opam pin add . -y
+opam install socialpeek
 ```
 
 ## Usage
