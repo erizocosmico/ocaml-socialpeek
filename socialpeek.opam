@@ -20,3 +20,4 @@ depends: [
   "jbuilder" {build & >= "1.0+beta10"}
   "ounit" {test & >= "2.0.6"}
 ]
+available: [ ocaml-version >= "4.02.3" ]
